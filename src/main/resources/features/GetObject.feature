@@ -1,6 +1,6 @@
 Feature: Return an Item
 
-@test
+@Test
 Scenario: Ability to return an item
  Given a item is created with below specification
   |item|cpumodel|price|harddisksize|year|
@@ -11,8 +11,8 @@ Scenario: Ability to return an item
  And the details of item matches with created item details
  And response time should be less than 3 sec
 
- @test
-Scenario: Verify that the Api shouldn't return Error When passing Wrong id
+ @Test
+Scenario: Verify that the Api should return Error When passing Wrong id
  Given the get object url is configured
  When the request to get the single item is made
  Then a 404 response code is returned

@@ -1,6 +1,6 @@
 Feature: Delete the Object
 
-  @test
+  @Test
  Scenario: Ability to Delete the Object
    Given a item is created with below specification
      |item|cpumodel|price|harddisksize|year|

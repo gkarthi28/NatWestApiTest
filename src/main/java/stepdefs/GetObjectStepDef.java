@@ -33,7 +33,7 @@ public class GetObjectStepDef {
 		  productData.setYear (Integer.parseInt (data.getFirst ().get("year")));
 		  item.setData (productData);
 		  response  = ApiUtil.post ("objects",item,ContentType.JSON);
-
+          TestContext.setLastResponse (response);
 	}
 	@Given("^stores the created item id$")
 	public void a_item_has_a_id_id() {
@@ -68,7 +68,7 @@ public class GetObjectStepDef {
 
 	@Given("^the get object url is configured$")
 	public void theGetObjectUrlIsConfigured() {
-		TestContext.set ("id","10879");
+		TestContext.set ("id","2056");
 		TestContext.set("path", "objects/"+TestContext.get ("id"));
 	}
 
@@ -78,4 +78,5 @@ public class GetObjectStepDef {
 		Assert.assertEquals (getResponse.jsonPath ().get ( "error" ),expectedMessage);
 
 	}
+
 }

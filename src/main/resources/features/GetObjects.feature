@@ -1,6 +1,6 @@
 Feature: List the Items
 
-  @test
+  @Test
 Scenario: Ability to list multiple items
   Given the list of all objects url is configured
   When the request to list all items is made
