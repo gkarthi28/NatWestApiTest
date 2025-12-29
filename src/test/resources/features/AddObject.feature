@@ -26,3 +26,23 @@ Feature: Add an  Object to the ProductList
        |Apple MacBook pro 17 |AMD   | | 500MB|2019|
        |Apple MacBook pro 18 |Nvidia   |300.50| |2019|
        |Apple MacBook pro 19 |Nvidia   |300.50|512MB ||
+
+@Test
+ Scenario Outline: Verify that the price of the object shouldn't be Negative
+   Given a item is created with below specification
+     |item|cpumodel|price|harddisksize|year|
+     |<item>|<cpuModel>|<price>|<harddisksize>|<year>|
+   When the request to add the item is made
+   Then a 500 response code is returned
+   And the response contains the error message "Price shouldnt be negative"
+   And response time should be less than 3 sec
+   Examples:
+     |item|cpuModel|price|harddisksize|year|
+     |Samsung MacBook pro 16|Intel Core i9|-200.89|1TB   |2020|
+
+  @Test
+ Scenario: Verify that the Api shouldn't create new Id for the existing object
+   Given existing object details is stored
+   When the request to add the item is made
+   Then a 500 response code is returned
+   And response time should be less than 3 sec

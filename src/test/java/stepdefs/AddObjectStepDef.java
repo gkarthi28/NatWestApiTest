@@ -1,10 +1,12 @@
 package stepdefs;
 
 import context.TestContext;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import dtos.Item;
 import dtos.ProductData;
@@ -50,4 +52,19 @@ public class AddObjectStepDef {
 		Assert.assertEquals (response.jsonPath ( ).getString ("name"), item);
 	}
 
+	@Given("existing object details is stored")
+	public void existing_object_details_is_stored() {
+		Response response = ApiUtil.get ("objects");
+		JsonPath jsonPath = response.getBody ().jsonPath ();
+		item.setName(jsonPath.getString ("[0].name" ));
+		productData.setCpuModel (jsonPath.getString ("[0].data.Generation" ));
+		productData.setHardDiskSize (jsonPath.getString ("[0].data.capacity" ));
+		item.setData (productData);
+
+	}
+
+	@And("the response contains the error message {string}")
+	public void theResponseContainsTheErrorMessage(String msg) {
+		Assert.assertEquals (response.getBody ().jsonPath ().get("errormessage"),msg);
+	}
 }
